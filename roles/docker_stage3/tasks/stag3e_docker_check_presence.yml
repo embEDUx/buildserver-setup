@@ -1,0 +1,6 @@
+---
+- name: Check if stage3 image is already present
+  docker_image: >
+    name={{ docker_image_prefix}}/stage3-{{ arch }} tag={{ stage3_date }} state=present
+  ignore_errors: yes
+  register: docker_import

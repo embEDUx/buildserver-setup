@@ -1,0 +1,3 @@
+---
+- include: stag3e_docker_check_presence.yml
+- include: stage3_docker_import.yml

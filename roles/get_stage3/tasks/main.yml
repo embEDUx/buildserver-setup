@@ -1,0 +1,30 @@
+---
+- name: Create download directory
+  file: path={{ base_dir }}/download/ state=directory
+ 
+- name: Download index
+  get_url: >
+    url={{ stage3_base_uri }}/{{ stage3_index_uri_suffix }}
+    dest={{ base_dir }}/download/
+  register: index_file
+
+- name: Find stage3 filename
+  shell: grep -E {{ stage3_re }} {{ index_file.dest }}
+  register: stage3download_suffix
+  
+- name: Delete index file
+  file: path={{ index_file.dest }} state=absent
+
+- name: Download stage3 archive
+  get_url: >
+    url={{ stage3_base_uri }}/{{ stage3download_suffix.stdout }}
+    dest={{ base_dir }}/download/{{ stage3download_suffix.stdout.split("/")[1] }}
+  register: stage3_file
+
+- name: Set download stage3 path
+  set_fact: >
+    stage3_filepath={{ stage3_file.dest }}
+
+- name: Set date for tag
+  set_fact: >
+    stage3_date={{ stage3download_suffix.stdout.split("/")[0] }}

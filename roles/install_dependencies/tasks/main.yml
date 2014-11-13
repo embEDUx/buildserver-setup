@@ -1,0 +1,9 @@
+---
+- name: Install buildserver dependencies
+  apt:
+    pkg: "{{ item }}"
+    state: installed
+    cache_valid_time: 43200
+  with_items:
+  - docker.io
+  - python-docker

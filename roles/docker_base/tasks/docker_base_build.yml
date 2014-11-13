@@ -1,0 +1,10 @@
+---
+- name: Build Docker base image
+  docker_image: >
+    path={{ dockerfile_dir }}/ state=build
+    name={{ docker_image_prefix }}/base-{{ arch }}  
+    tag={{ stage3_date }}
+    
+- name: Set base image fact
+  set_fact: >
+    base_image={{ docker_image_prefix }}/base-{{ arch }}:{{ stage3_date }}

@@ -1,0 +1,4 @@
+---
+ansible_connection: ssh
+ansible_ssh_host: emily.in.htwg-konstanz.de
+ansible_ssh_user: embedux

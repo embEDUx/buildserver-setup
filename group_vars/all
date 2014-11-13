@@ -1,0 +1,10 @@
+---
+# Variables listed here are applicable to all host groups
+
+base_dir: /home/embedux/embedux
+arch_map:
+  x86_64: amd64
+  armv6l: armv6j_hardfp
+  armv7l: armv7a_hardfp
+arch: "{{ arch_map[ansible_architecture] }}"
+docker_image_prefix: embedux

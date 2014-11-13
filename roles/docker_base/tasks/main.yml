@@ -1,0 +1,4 @@
+---
+- include: prepare_directory.yml
+- include: render_templates.yml
+- include: docker_base_build.yml

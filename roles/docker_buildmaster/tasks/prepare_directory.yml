@@ -1,0 +1,8 @@
+---
+- name: docker_base directory
+  file: path={{ base_dir }}/docker_buildmaster/ state=directory
+  
+- name: copy files
+  synchronize: >
+    src=. dest={{ base_dir }}/docker_buildmaster/
+    archive=yes delete=yes

@@ -1,0 +1,7 @@
+---
+- name: manage buildbot master container
+  docker: >
+    image=embedux/master-amd64
+    ports=8010:8010,9989:9989
+    volumes=/home/embedux/master.cfg.py:/var/lib/buildmaster/master.cfg
+    state={{ state|default("running") }}

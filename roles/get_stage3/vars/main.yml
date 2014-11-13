@@ -1,0 +1,4 @@
+stage3_base_uri: http://distfiles.gentoo.org/releases/{{ arch }}/autobuilds
+stage3_index_uri_suffix: latest-stage3.txt
+stage3_uri_suffix: latest-stage3.txt
+stage3_re: '[0-9]{8}/stage3-{{ arch }}-[0-9]+\.tar\.bz2'

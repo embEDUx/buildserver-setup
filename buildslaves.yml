@@ -1,0 +1,5 @@
+---
+- hosts: master.yml
+  roles:
+  - common
+  - slaves

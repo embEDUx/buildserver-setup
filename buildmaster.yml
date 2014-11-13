@@ -1,0 +1,5 @@
+---
+- hosts: buildmaster
+  roles:
+    - common
+    - buildmaster

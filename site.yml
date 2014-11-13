@@ -1,0 +1,3 @@
+---
+- include: buildmaster.yml
+#- include: slaves.yml
