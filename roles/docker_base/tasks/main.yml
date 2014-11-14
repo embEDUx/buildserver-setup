@@ -1,4 +1,6 @@
 ---
-- include: prepare_directory.yml
-- include: render_templates.yml
-- include: docker_base_build.yml
+- include: fetch_kernelconfig.yml tags=generate
+- include: prepare_directory.yml tags=generate
+- include: render_templates.yml tags=generate
+- include: docker_base_build.yml tags=build
+- include: set_facts.yml tags=build,generate

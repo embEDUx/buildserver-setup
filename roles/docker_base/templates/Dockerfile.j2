@@ -1,8 +1,13 @@
 FROM {{ stage3_image }}
 MAINTAINER Stefan Junker <code@stefanjunker.de>
 
+{% if target_arch is defined and arch != target_arch %}
+ADD files/qemu/{{ arch }}_qemu-{{ target_arch_short }} /usr/bin/qemu-{{ target_arch_short }}
+{% endif %}
+
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
-RUN emerge-webrsync {% if stage3_date is defined %}--revert={{ stage3_date }}{% endif %}
+RUN emerge-webrsync {% if stage3_date is defined %}--revert={{ stage3_date }}{% endif %} || \
+    emerge-webrsync
 
 ADD files/make.conf.appendix /tmp/
 RUN cat /tmp/make.conf.appendix >> /etc/portage/make.conf
@@ -17,6 +22,7 @@ RUN \
   etc-update --automode -5 && \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
+  
 ADD files/kernel.config /usr/src/linux/.config
 
 RUN \

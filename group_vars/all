@@ -7,4 +7,10 @@ arch_map:
   armv6l: armv6j_hardfp
   armv7l: armv7a_hardfp
 arch: "{{ arch_map[ansible_architecture] }}"
+
+arch_short_map:
+  amd64: amd64
+  armv6j_hardfp: arm
+  armv7a_hardfp: arm
+
 docker_image_prefix: embedux

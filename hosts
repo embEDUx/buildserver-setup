@@ -6,7 +6,3 @@ emily
 
 [buildslaves-armv7l_hardfp]
 emily
-
-[buildslaves:children]
-buildslaves-armv6j_hardfp
-buildslaves-armv7l_hardfp

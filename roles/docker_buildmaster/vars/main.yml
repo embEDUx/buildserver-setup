@@ -1,1 +1,3 @@
-buildmaster_dir: /var/lib/buildmaster
+---
+dockerfile_dir: "{{ base_dir }}/docker_buildmaster"
+buildmaster_dir: /var/lib/buildslave

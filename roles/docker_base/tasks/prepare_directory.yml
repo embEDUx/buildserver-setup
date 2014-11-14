@@ -1,8 +1,8 @@
 ---
 - name: docker_base directory
-  file: path={{ base_dir }}/docker_base/ state=directory
+  file: path={{ dockerfile_dir }} state=directory
   
 - name: copy files
   synchronize: >
-    src=. dest={{ base_dir }}/docker_base/
+    src=. dest={{ dockerfile_dir }}/
     archive=yes delete=yes

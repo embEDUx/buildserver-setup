@@ -1,2 +1,2 @@
 ---
-dockerfile_dir: "{{ base_dir }}/docker_base"
+dockerfile_dir: "{{ base_dir }}/{{ target_arch }}/docker_base"

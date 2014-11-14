@@ -13,8 +13,6 @@ RUN buildbot create-master {{ buildmaster_dir }}
 RUN sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildmaster_dir }}/buildbot.tac
 RUN chown -R buildbot:buildbot {{ buildmaster_dir }}
 
-RUN update-ca-certificates
-
 USER buildbot
 CMD twistd --no_save -n --logfile=- --python={{ buildmaster_dir }}/buildbot.tac --pidfile={{ buildmaster_dir }}/twistd.pid
 

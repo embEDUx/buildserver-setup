@@ -1,3 +1,4 @@
 ---
-- include: stag3e_docker_check_presence.yml
-- include: stage3_docker_import.yml
+- include: stag3e_docker_check_presence.yml tags=get
+- include: stage3_docker_import.yml tags=get
+- include: set_facts.yml tags=generate,build

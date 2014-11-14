@@ -1,0 +1,5 @@
+---
+
+
+- name: Check if we need to register ELF-Header
+  shell: echp -1 > {{ unregister_interface }}; echo "{{ arm_elf_string }}" > "{{ register_interface }}"

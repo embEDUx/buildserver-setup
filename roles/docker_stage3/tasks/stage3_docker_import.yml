@@ -1,8 +1,5 @@
+---
 - name: Import stage3 image if it's not present
-  shell: cat {{ stage3_filepath }} | docker import - {{ docker_image_prefix }}/stage3-{{ arch }}:{{ stage3_date }}
+  shell: cat {{ stage3_filepath }} | docker import - {{ docker_image_prefix }}/stage3-{{ target_arch }}:{{ stage3_date }}
   when: docker_import|failed
   register: docker_import
-
-- name: Set stage3 image fact
-  set_fact: >
-    stage3_image={{ docker_image_prefix }}/stage3-{{ arch }}:{{ stage3_date }}

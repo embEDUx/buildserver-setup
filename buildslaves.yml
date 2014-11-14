@@ -1,5 +1,14 @@
 ---
-- hosts: master.yml
+- hosts: buildslaves-armv6j_hardfp
+  vars:
+    target_arch_short: arm
+    target_arch: armv6j_hardfp
   roles:
-  - common
-  - slaves
+  - role: docker_buildslave
+
+- hosts: buildslaves-armv7j_hardfp
+  vars:
+    target_arch_short: arm
+    target_arch: armv7j_hardfp
+  roles:
+  - role: docker_buildslave

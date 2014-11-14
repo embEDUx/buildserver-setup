@@ -1,0 +1,5 @@
+---
+- include: prepare_directory.yml tags=generate
+- include: render_templates.yml tags=generate
+- include: docker_buildmaster_present.yml tags=build
+- include: set_facts.yml tags=build,generate

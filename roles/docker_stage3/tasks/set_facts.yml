@@ -1,0 +1,4 @@
+---
+- name: Set stage3 image fact
+  set_fact: >
+    stage3_image={{ docker_image_prefix }}/stage3-{{ target_arch }}:{{ stage3_date }}

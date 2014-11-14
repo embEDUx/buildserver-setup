@@ -1,0 +1,4 @@
+---
+- hosts: buildslaves
+  roles:
+  - role: print_arch

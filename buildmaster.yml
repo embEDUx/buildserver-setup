@@ -1,5 +1,7 @@
 ---
+
 - hosts: buildmaster
+  vars:
+    target_arch: "{{ arch }}"
   roles:
-    - common
-    - buildmaster
+  - role: docker_buildmaster
