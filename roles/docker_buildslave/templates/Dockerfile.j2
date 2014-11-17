@@ -9,7 +9,7 @@ RUN \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
-RUN buildslave create-slave {{ buildslave_dir }} {{ master }} {{ nane }} {{ passwd }}
+RUN buildslave create-slave {{ buildslave_dir }} {{ master }} {{ name }} {{ passwd }}
 RUN sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
 RUN chown -R buildbot:buildbot {{ buildslave_dir }}
 

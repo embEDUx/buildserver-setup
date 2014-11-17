@@ -1,6 +1,0 @@
----
-- name: Render make.conf.appendix
-  template: src=make.conf.appendix.j2 dest={{ dockerfile_dir }}/files/make.conf.appendix
-
-- name: Render Dockerfile
-  template: src=Dockerfile.j2 dest={{ dockerfile_dir }}/Dockerfile

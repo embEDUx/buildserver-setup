@@ -1,3 +1,10 @@
 ---
-dockerfile_dir: "{{ base_dir }}/docker_buildmaster"
-buildmaster_dir: /var/lib/buildslave
+docker_imagename: buildmaster
+role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
+dockerfile_dir: "{{ base_dir }}/{{ target_arch }}/docker_{{ docker_imagename }}"
+buildmaster_dir: /var/lib/buildmaster
+docker_ports:
+  - "8010:8010"
+  - "9989:9989"
+docker_volumes:
+  - "{{ config_dir }}/{{ docker_imagename }}/master.cfg:{{ buildmaster_dir}}/master.cfg"

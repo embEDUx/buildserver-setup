@@ -6,6 +6,8 @@
     flat=yes
   register: fetch_kernelconfig_boot
   ignore_errors: true
+  tags: 
+    - generate
   
 - name: Fetch remote kernel configuration from proc
   fetch: >
@@ -13,7 +15,11 @@
     dest=roles/docker_base/files/kernel.config
     flat=yes
   when: fetch_kernelconfig_boot|failed
+  tags: 
+    - generate
   
 - name: Unpack proc-config.gz
   local_action: command gunzip roles/docker_base/files/kernel.config
   when: fetch_kernelconfig_boot|failed
+  tags: 
+    - generate

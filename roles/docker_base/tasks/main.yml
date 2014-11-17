@@ -1,6 +1,16 @@
 ---
-- include: fetch_kernelconfig.yml tags=generate
-- include: prepare_directory.yml tags=generate
-- include: render_templates.yml tags=generate
-- include: docker_base_build.yml tags=build
-- include: set_facts.yml tags=build,generate
+#- include: fetch_kernelconfig.yml tags=generate
+- include: ../../common/tasks/prepare_directory.yml
+
+- include: ../../common/tasks/render_templates.yml
+- name: render make.conf.appendix
+  local_action:
+    module: template
+    src: make.conf.appendix.j2
+    dest: "{{ role_dir }}/files/make.conf.appendix"
+  tags:
+    - generate
+
+- include: ../../common/tasks/sync_dir.yml
+- include: ../../common/tasks/docker_image_present.yml
+- include: ../../common/tasks/set_facts.yml

@@ -1,0 +1,9 @@
+---
+- name: manage buildbot master container
+  docker: >
+    image=embedux/buildmaster-{{ target_arch }}
+    ports={{ docker_ports|join(",") }}
+    volumes={{ docker_volumes|join(",") }}
+    state={{ state|default("running") }}
+  tags:
+    - run

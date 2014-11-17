@@ -1,3 +1,0 @@
----
-- name: Render Dockerfile
-  template: src=Dockerfile.j2 dest={{ dockerfile_dir }}/Dockerfile

@@ -1,0 +1,5 @@
+---
+- name: render Dockerfile
+  template: src={{ role_dir }}/templates/Dockerfile.j2 dest={{ dockerfile_dir }}/Dockerfile
+  tags:
+    - generate

@@ -1,0 +1,11 @@
+--- a/src/pkg/runtime/os_linux.h	2014-10-01 01:50:23.000000000 +0000
++++ b/src/pkg/runtime/os_linux.h	2014-11-17 09:06:55.000000000 +0000
+@@ -16,7 +16,7 @@
+ void runtime·setitimer(int32, Itimerval*, Itimerval*);
+ 
+ 
+-#define	NSIG	65
++#define	NSIG	64
+ #define	SI_USER 0
+ 
+ // It's hard to tease out exactly how big a Sigset is, but

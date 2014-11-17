@@ -1,4 +1,0 @@
----
-- name: Set base image fact
-  set_fact: >
-    base_image={{ docker_image_prefix }}/base-{{ arch }}:{{ stage3_date }}

@@ -1,3 +1,6 @@
 ---
+sudo: True
+sudo_user: embedux
+
 - include: buildmaster.yml
 - include: buildslaves.yml

@@ -1,8 +1,0 @@
----
-- name: Build Docker buildmaster image
-  docker_image: >
-    path={{ dockerfile_dir }}/
-    state=present
-    name={{ docker_image_prefix }}/buildmaster-{{ arch }}  
-    tag={{ stage3_date }}
-    timeout=1800

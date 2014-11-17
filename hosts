@@ -1,8 +1,2 @@
 [buildmaster]
 emily
-
-[buildslaves-armv6j_hardfp]
-emily
-
-[buildslaves-armv7l_hardfp]
-emily

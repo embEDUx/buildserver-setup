@@ -1,0 +1,6 @@
+---
+- name: ensure dockerfile directory is present
+  file: path={{ dockerfile_dir }} state=directory
+  tags:
+    - generate
+  
