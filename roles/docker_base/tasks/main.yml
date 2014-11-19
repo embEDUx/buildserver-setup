@@ -1,7 +1,6 @@
 ---
-#- include: fetch_kernelconfig.yml tags=generate
+- include_vars: main.yml
 - include: ../../common/tasks/prepare_directory.yml
-
 - include: ../../common/tasks/render_templates.yml
 - name: render make.conf.appendix
   local_action:

@@ -1,9 +1,4 @@
 ---
-
 - hosts: buildmaster
-  vars:
-    target_arch: "{{ arch }}"
   roles:
-  - role: docker_stage3
-  - role: docker_base
   - role: docker_buildmaster

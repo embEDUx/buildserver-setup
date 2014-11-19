@@ -1,15 +1,12 @@
-FROM {{ from_image }}
+FROM {{ base_image }}
 MAINTAINER Stefan Junker <code@stefanjunker.de>
 
 RUN \
   {% set package="dev-util/buildbot-slave" %}
-  flaggie {{ package }} +mail +manhole && \
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
+  emerge {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
-RUN buildslave create-slave {{ buildslave_dir }} {{ master }} {{ name }} {{ passwd }}
+RUN buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} {{ target_arch }} {{ target_arch }}
 RUN sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
 RUN chown -R buildbot:buildbot {{ buildslave_dir }}
 

@@ -1,6 +1,7 @@
 ---
-sudo: True
-sudo_user: embedux
+- hosts: all
+  roles:
+  - role: dump_vars
 
 - include: buildmaster.yml
 - include: buildslaves.yml

@@ -2,7 +2,7 @@
 - name: make sure the image is present
   docker_image: >
     path={{ dockerfile_dir }}/
-    state=present
+    state={{ state|default("present") }}
     name={{ docker_image_prefix }}/{{ docker_imagename }}-{{ target_arch }}  
     tag={{ stage3_date }}
     timeout=1800

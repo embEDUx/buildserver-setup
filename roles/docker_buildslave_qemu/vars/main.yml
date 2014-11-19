@@ -1,0 +1,6 @@
+---
+docker_imagename: buildslave_qemu
+role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
+dockerfile_dir: "{{ base_dir }}/{{ target_arch }}/docker_{{ docker_imagename }}"
+docker_ports: []
+docker_volumes: []

@@ -1,0 +1,40 @@
+FROM {{ base_image }}
+MAINTAINER Stefan Junker <code@stefanjunker.de>
+
+RUN \
+  {% set kernel_version=ansible_kernel.split('.')[0]+"."+ansible_kernel.split('.')[1] %}
+  {% set package="=sys-kernel/gentoo-sources-"+kernel_version+"*" %}
+  {% set flags="+use::experimental +kw::~"+arch %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+  
+ADD files/kernel.config /usr/src/linux/.config
+
+RUN \
+  {% set package="app-emulation/qemu" %}
+  {% set flags="+qemu_user_targets_arm +qemu_user_targets_x86_64 +qemu_softmmu_targets_arm +qemu_softmmu_targets_x86_64 +static-softmmu +static-user -opengl -gtk +virtfs" %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/* &&
+  cp /usr/bin/qemu-* /mnt/output/
+
+RUN \
+  {% set package="app-emulation/docker" %}
+  {% set flags="+kw::~"+arch %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+COPY files/ca-certificates /usr/local/share/ca-certificates/
+RUN \
+    chmod 644 /usr/local/share/ca-certificates/*.crt && \
+    update-ca-certificates
+
+CMD /bin/bash

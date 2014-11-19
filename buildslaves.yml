@@ -1,29 +1,37 @@
 ---
-#- hosts: all
-#  tasks:
-#  - name: group by architecture
-#    group_by: buildslaves-{{ arch_map[ansible_architecture] }}
-#
-#- hosts: buildslaves-armv6j_hardfp
-#  roles:
-#  - { role: docker_buildslave, target_arch: armv6j_hardfp }
-#
-#- hosts: buildslaves-armv7a_hardfp
-#  roles:
-#  - { role: docker_buildslave, target_arch: armv7a_hardfp }
+- hosts: all
+  tasks:
+  - name: group by architecture
+    group_by: key=buildslaves-{{ arch_map[ansible_architecture] }}
+    tags: 
+      - always
+  - name: add buildmaster to groups
+    add_host: name={{ groups["buildmaster"][0] }} groups={{ item }}
+    when: item not in groups
+    with_items:
+      - buildslaves-amd64
+      - buildslaves-armv6j_hardfp
+      - buildslaves-armv7j_hardfp
+    tags: 
+      - always
 
-- hosts: buildmaster
+- hosts: buildslaves-amd64
   vars:
-    target_arch: armv6j_hardfp
-    target_arch_short: arm
+    target_arch: amd64
+    target_arch_short: amd64
   roles:
-  - role: get_stage3
-    when: "{{ 'buildslaves-armv6j_hardfp' not in groups }}"
-  - role: docker_stage3
-    when: "{{ 'buildslaves-armv6j_hardfp' not in groups }}"
-  - role: docker_base
-    when: "{{ 'buildslaves-armv6j_hardfp' not in groups }}"
-#  - role: docker_buildslave 
-#    when: "{{ 'buildslaves-armv6j_hardfp' not in groups }}"
+  - role: docker_buildslave
 
-#  - { role: docker_buildslave, target_arch: armv7a_hardfp, when: "{{ 'buildslaves-armv7a_hardfp' not in groups }}" }
+#- hosts: buildslaves-armv6j_hardfp
+#  vars:
+#    target_arch: armv6j_hardfp
+#    target_arch_short: arm
+#  roles:
+#    - role: docker_buildslave_qemu
+
+#- hosts: buildslaves-armv7a_hardfp
+#  vars:
+#    target_arch: armv7j_hardfp
+#    target_arch_short: arm
+#  roles:
+#  - role: docker_buildslave

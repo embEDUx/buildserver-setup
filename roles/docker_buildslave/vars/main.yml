@@ -3,6 +3,8 @@ docker_imagename: buildslave
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
 dockerfile_dir: "{{ base_dir }}/{{ target_arch }}/docker_{{ docker_imagename }}"
 buildslave_dir: /var/lib/buildslave
-docker_ports: []
-docker_volumes: []
-
+docker_ports:
+  - 8010
+  - 9989
+docker_volumes: 
+   - "/var/run/docker.sock:/var/run/docker.sock"
