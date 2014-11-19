@@ -5,7 +5,7 @@
     - generate
 - name: Check if image is already present
   docker_image: >
-    name={{ docker_image_prefix}}/{{ docker_imagename }}-{{ target_arch }} tag={{ stage3_date }} state=present
+    name={{ docker_image_prefix}}/{{ docker_imagename }}-{{ arch }} tag={{ stage3_date }} state=present
   ignore_errors: yes
   register: present
   tags:

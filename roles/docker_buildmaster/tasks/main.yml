@@ -6,5 +6,5 @@
 - include: ../../common/tasks/docker_image_present.yml
   state: build
 - include: ../../common/tasks/set_facts.yml
-- include: ../../common/tasks/docker_running.yml
+- include: ../../common/tasks/docker_container_manage.yml
   docker_image: "{{ buildmaster_image }}"

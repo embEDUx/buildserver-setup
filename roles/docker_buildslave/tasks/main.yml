@@ -1,9 +1,10 @@
 ---
 - include_vars: main.yml
+- include: ../../common/tasks/fetch_kernelconfig.yml
 - include: ../../common/tasks/prepare_directory.yml
 - include: ../../common/tasks/render_templates.yml
 - include: ../../common/tasks/sync_dir.yml
 - include: ../../common/tasks/docker_image_present.yml
 - include: ../../common/tasks/set_facts.yml
-- include: ../../common/tasks/docker_running.yml
+- include: ../../common/tasks/docker_container_manage.yml
   docker_image: "{{ buildslave_image }}"

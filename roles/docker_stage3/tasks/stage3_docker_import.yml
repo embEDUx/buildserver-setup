@@ -1,6 +1,6 @@
 ---
 - name: Import stage3 image if it's not present
-  shell: cat {{ stage3_filepath }} | docker import - {{ docker_image_prefix }}/{{ docker_imagename}}-{{ target_arch }}:{{ stage3_date }}
+  shell: cat {{ stage3_filepath }} | docker import - {{ docker_image_prefix }}/{{ docker_imagename}}-{{ arch }}:{{ stage3_date }}
   register: docker_import
   tags:
     - build

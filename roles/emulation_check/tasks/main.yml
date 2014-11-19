@@ -1,5 +1,6 @@
 ---
 - name: Check if we need to register ELF-Header
   shell: "[ -e {{ arm_registered }} ] || echo {{ arm_elf_string }} > {{ register_interface }}"
+  when: arch != target_arch
   tags:
     - build

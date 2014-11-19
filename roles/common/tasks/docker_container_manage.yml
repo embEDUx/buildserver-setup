@@ -2,9 +2,10 @@
 - name: manage existing container
   docker: >
     image={{ docker_image }}
-    name={{ docker_imagename }}_{{ target_arch }}
+    name={{ docker_imagename }}_{{ arch }}
     ports={{ docker_ports|join(",") }}
     volumes={{ docker_volumes|join(",") }}
     state={{ docker_state|default("running") }}
+  with_items: docker_states|default(['running'])
   tags:
-    - run
+    - manage

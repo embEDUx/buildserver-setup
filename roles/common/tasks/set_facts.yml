@@ -1,6 +1,7 @@
 ---
 - name: Set image fact
   set_fact: >
-    {{ docker_imagename }}_image={{ docker_image_prefix }}/{{ docker_imagename }}-{{ target_arch }}:{{ stage3_date }}
+    {{ docker_imagename }}_image={{ docker_image_prefix }}/{{ docker_imagename }}-{{ arch }}:{{ stage3_date }}
   tags:
     - always
+    - manage

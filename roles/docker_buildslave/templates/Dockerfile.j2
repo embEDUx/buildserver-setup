@@ -1,16 +1,49 @@
 FROM {{ base_image }}
 MAINTAINER Stefan Junker <code@stefanjunker.de>
 
+{% if arch != target_arch %}
+RUN \
+  {% set kernel_version=ansible_kernel.split('.')[0]+"."+ansible_kernel.split('.')[1] %}
+  {% set package="=sys-kernel/gentoo-sources-"+kernel_version+"*" %}
+  {% set flags="+use::experimental +kw::~"+arch %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+ADD files/kernel.config /usr/src/linux/.config
+
+RUN \
+  {% set package="app-emulation/qemu" %}
+  {% set flags="+qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +virtfs" %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/* 
+
+{% else %}
+
 RUN \
   {% set package="dev-util/buildbot-slave" %}
   emerge {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
-RUN buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} {{ target_arch }} {{ target_arch }}
+RUN buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} {{ arch }} {{ arch }}
 RUN sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
-RUN chown -R buildbot:buildbot {{ buildslave_dir }}
 
-USER buildbot
+#RUN chown -R buildbot:buildbot {{ buildslave_dir }}
+#USER buildbot
+
 CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
 
 EXPOSE 9989 8010
+
+RUN \
+  {% set package="sys-devel/ct-ng" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+{% endif %}
