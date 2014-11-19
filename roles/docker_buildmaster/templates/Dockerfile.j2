@@ -11,7 +11,6 @@ RUN \
 
 RUN buildbot create-master {{ buildmaster_dir }}
 RUN sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildmaster_dir }}/buildbot.tac
-COPY files/master.cfg {{ buildmaster_dir }}/master.cfg
 RUN chown -R buildbot:buildbot {{ buildmaster_dir }}
 
 USER buildbot

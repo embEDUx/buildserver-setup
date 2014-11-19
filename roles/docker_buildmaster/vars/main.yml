@@ -9,5 +9,5 @@ docker_ports:
   - "8010:8010"
   - "9989:9989"
 docker_volumes: 
-   - "/var/run/docker.sock:/var/run/docker.sock"
-#  - "{{ config_dir }}/{{ docker_imagename }}/master.cfg:{{ buildmaster_dir}}/master.cfg"
+  - "/var/run/docker.sock:/var/run/docker.sock"
+  - "{{ dockerfile_dir }}/files/master.cfg:{{ buildmaster_dir}}/master.cfg"
