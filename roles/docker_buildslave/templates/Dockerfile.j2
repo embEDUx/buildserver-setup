@@ -15,7 +15,7 @@ ADD files/kernel.config /usr/src/linux/.config
 
 RUN \
   {% set package="app-emulation/qemu" %}
-  {% set flags="+qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +virtfs" %}
+  {% set flags="+qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +virtfs +xattr" %}
   flaggie {{ package }} {{ flags }}  && \
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
