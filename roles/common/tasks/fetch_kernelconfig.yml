@@ -2,7 +2,7 @@
 - name: Fetch remote kernel configuration file from boot
   fetch: >
     src=/boot/config-{{ ansible_kernel }}
-    dest={{ role_dir }}/kernel.config
+    dest={{ role_dir }}/files/kernel.config
     flat=yes
   register: fetch_kernelconfig_boot
   ignore_errors: true

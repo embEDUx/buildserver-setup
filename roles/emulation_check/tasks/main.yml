@@ -1,6 +1,6 @@
 ---
 - name: Check if we need to register ELF-Header
-  shell: "[ -e {{ arm_registered }} ] || echo {{ arm_elf_string }} > {{ register_interface }}"
-  when: arch != target_arch
+  shell: "[ -e {{ procfs_registered[target_arch_short] }} ] || echo '{{ elf_strings[target_arch_short] }}' > {{ procfs_register_interface }}"
+  when: native_arch != target_arch
   tags:
     - build

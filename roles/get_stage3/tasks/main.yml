@@ -1,4 +1,8 @@
 ---
+- include_vars: main.yml
+  tags:
+    - always
+
 - name: Create download directory
   file: path={{ base_dir }}/download/ state=directory
   tags:
@@ -39,6 +43,6 @@
 
 - name: Set date for tag
   set_fact: >
-    stage3_date={{ stage3download_suffix.stdout.split("/")[0] }}
+        stage3_date={{ stage3download_suffix.stdout.split('/')[0] }}
   tags:
     - get

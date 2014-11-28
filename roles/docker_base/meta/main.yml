@@ -1,3 +1,10 @@
 ---
-dependencies:
-  - role: docker_stage3
+#allow_duplicates: yes
+#dependencies:
+#  - role: docker_stage3
+#    arch: "{{ native_arch }}"
+#    arch_short: "{{ native_arch_short }}"
+#  - role: docker_stage3
+#    arch: "{{ target_arch }}"
+#    arch_short: "{{ target_arch_short }}"
+#    when: native_arch != target_arch

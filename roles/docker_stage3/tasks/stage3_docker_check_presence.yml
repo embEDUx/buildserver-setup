@@ -1,6 +1,6 @@
 ---
 - name: print something
-  debug: msg={{ docker_imagename }}
+  debug: msg=docker_imagename:{{ docker_imagename }}/arch:{{ arch }}/native_arch:{{ native_arch }}/target_arch:{{ target_arch }}
   tags:
     - generate
 - name: Check if image is already present

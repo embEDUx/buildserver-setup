@@ -1,5 +1,8 @@
 ---
 - include_vars: main.yml
+  tags:
+    - always
+
 - include: ../../common/tasks/fetch_kernelconfig.yml
 - include: ../../common/tasks/prepare_directory.yml
 - include: ../../common/tasks/render_templates.yml

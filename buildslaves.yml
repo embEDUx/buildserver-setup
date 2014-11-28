@@ -11,16 +11,16 @@
     with_items:
       - buildslaves-amd64
       - buildslaves-armv6j_hardfp
-      - buildslaves-armv7j_hardfp
+      - buildslaves-armv7a_hardfp
     tags: 
       - always
 
-- hosts: buildslaves-amd64
-  vars:
-    target_arch: amd64
-    target_arch_short: amd64
-  roles:
-  - role: docker_buildslave
+#- hosts: buildslaves-amd64
+#  vars:
+#    target_arch: amd64
+#    target_arch_short: amd64
+#  roles:
+#  - role: docker_buildslave
 
 #- hosts: buildslaves-armv6j_hardfp
 #  vars:
@@ -29,9 +29,9 @@
 #  roles:
 #    - role: docker_buildslave_qemu
 
-#- hosts: buildslaves-armv7a_hardfp
-#  vars:
-#    target_arch: armv7j_hardfp
-#    target_arch_short: arm
-#  roles:
-#  - role: docker_buildslave
+- hosts: buildslaves-armv7a_hardfp
+  vars:
+    target_arch: armv7a_hardfp
+    target_arch_short: arm
+  roles:
+  - role: docker_buildslave

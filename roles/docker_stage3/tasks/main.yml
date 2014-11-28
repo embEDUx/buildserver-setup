@@ -1,5 +1,8 @@
 ---
 - include_vars: main.yml
+  tags:
+    - always
+
 - include: stage3_docker_check_presence.yml
 - include: stage3_docker_import.yml
   when: present|failed
