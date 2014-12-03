@@ -1,5 +1,8 @@
 ---
+arch: "{{ target_arch }}"
+arch_short: "{{ target__arch_short }}"
 docker_imagename: buildmaster
+docker_image: "{{ buildmaster_image }}"
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
 buildmaster_dir: /var/lib/buildmaster
@@ -7,5 +10,4 @@ docker_ports:
   - "8010:8010"
   - "9989:9989"
 docker_volumes: 
-  - "/var/run/docker.sock:/var/run/docker.sock"
   - "{{ dockerfile_dir }}/files/master.cfg:{{ buildmaster_dir}}/master.cfg"

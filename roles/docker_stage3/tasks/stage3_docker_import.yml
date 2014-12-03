@@ -3,4 +3,4 @@
   shell: cat {{ stage3_filepath }} | docker import - {{ docker_image_prefix }}/{{ docker_imagename}}-{{ arch }}:{{ stage3_date }}
   register: docker_import
   tags:
-    - get
+    - build

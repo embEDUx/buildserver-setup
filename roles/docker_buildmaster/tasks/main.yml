@@ -1,10 +1,12 @@
 ---
 - include_vars: main.yml
+  tags:
+    - always
+
 - include: ../../common/tasks/prepare_directory.yml
 - include: ../../common/tasks/render_templates.yml
 - include: ../../common/tasks/sync_dir.yml
 - include: ../../common/tasks/docker_image_present.yml
-  state: build
 - include: ../../common/tasks/set_facts.yml
 - include: ../../common/tasks/docker_container_manage.yml
   docker_image: "{{ buildmaster_image }}"

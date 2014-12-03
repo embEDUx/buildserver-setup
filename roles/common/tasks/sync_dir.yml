@@ -4,4 +4,4 @@
     src={{ role_dir }}/files dest={{ dockerfile_dir }}
     archive=no delete=yes checksum=yes recursive=yes
   tags:
-    - generate
+    - sync
