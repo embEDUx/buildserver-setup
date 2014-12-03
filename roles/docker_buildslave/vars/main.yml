@@ -1,4 +1,6 @@
 ---
+arch: "{{ target_arch }}"
+arch_short: "{{ target__arch_short }}"
 docker_imagename: buildslave
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
