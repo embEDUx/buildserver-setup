@@ -1,0 +1,10 @@
+--- linux-user/ioctls.h.orig    2014-12-04 17:31:22.444659289 +0100
++++ linux-user/ioctls.h 2014-12-04 17:30:37.474887892 +0100
+@@ -385,3 +385,7 @@
+                 MK_PTR(MK_STRUCT(STRUCT_rtentry)))
+   IOCTL_SPECIAL(SIOCDELRT, IOC_W, do_ioctl_rt,
+                 MK_PTR(MK_STRUCT(STRUCT_rtentry)))
++
++#ifdef BTRFS_IOC_CLONE
++IOCTL(BTRFS_IOC_CLONE, IOC_W, TYPE_INT)
++#endif

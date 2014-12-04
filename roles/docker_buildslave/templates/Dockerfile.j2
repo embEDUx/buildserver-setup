@@ -25,6 +25,13 @@ RUN \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
+RUN \
+  {% set package="dev-python/virtualenv" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
 USER buildbot
 CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
 EXPOSE 9989 8010

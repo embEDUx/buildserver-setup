@@ -5,7 +5,7 @@
     name={{ docker_imagename }}_{{ arch }}
     ports={{ docker_ports|join(",") }}
     volumes={{ docker_volumes|join(",") }}
-    state={{ docker_state|default("running") }}
-  with_items: docker_states|default(['running'])
+    state={{ item }}
+  with_items: container_states|default(['restarted','running'])
   tags:
     - manage
