@@ -1,7 +1,7 @@
 ---
 # Variables listed here are applicable to all host groups
-config_dir: "{{ base_dir }}/config"
 base_dir: /var/tmp/embedux
+config_dir: "{{ base_dir }}/config"
 
 arch_map:
   x86_64: amd64
@@ -16,6 +16,6 @@ arch_qemu_cpu_map:
   armv7a_hardfp: cortex-a15
 
 native_arch: "{{ arch_map[ansible_architecture] }}"
-native_arch_short: "{{ arch_short_map[native_arch }}"
+native_arch_short: "{{ arch_short_map[native_arch] }}"
 
 docker_image_prefix: "embedux"

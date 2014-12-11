@@ -1,12 +1,12 @@
 ---
-arch: "{{ target_arch }}"
-arch_short: "{{ target__arch_short }}"
+arch: "{{ native_arch }}"
+arch_short: "{{ native_arch_short }}"
 docker_imagename: buildmaster
 docker_image: "{{ buildmaster_image }}"
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
 buildmaster_dir: /var/lib/buildmaster
-docker_ports:
+docker_ports: 
   - "8010:8010"
   - "9989:9989"
 docker_volumes: 

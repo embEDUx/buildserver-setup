@@ -1,12 +1,10 @@
 ---
 arch: "{{ target_arch }}"
-arch_short: "{{ target__arch_short }}"
+arch_short: "{{ target_arch_short }}"
 docker_imagename: buildslave
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
 buildslave_dir: /var/lib/buildslave
-docker_ports:
-  - 8010
-  - 9989
+docker_ports: ["0"]
 docker_volumes: 
    - "/var/run/docker.sock:/var/run/docker.sock"

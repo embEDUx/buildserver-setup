@@ -7,9 +7,16 @@ RUN \
   rm -Rf /usr/portage/distfiles/*
 
 RUN \
-   buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} {{ target_arch }} {{ target_arch }} && \
+  buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} {{ target_arch }} {{ target_arch }} && \
   chown -R buildbot:buildbot {{ buildslave_dir }} && \
   sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
+
+RUN \
+  {% set package="sys-devel/crossdev" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
 
 RUN \
   {% set package="sys-devel/ct-ng" %}
@@ -32,6 +39,19 @@ RUN \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
+{% if native_arch != target_arch %}
+RUN \
+  mkdir -p /usr/local/portage/{metadata,profiles} && \
+  echo 'NameOfYourOverlay' > /usr/local/portage/profiles/repo_name && \
+  echo 'masters = gentoo' > /usr/local/portage/metadata/layout.conf && \
+  chown -R portage:portage /usr/local/portage && \
+  echo 'PORTDIR_OVERLAY="/usr/local/portage ${PORTDIR_OVERLAY}"' >> /etc/portage/make.conf && \
+  crossdev -S -t {{ target_arch }}-hardfloat-linux-gnueabi && \
+  rm -Rf /usr/portage/distfiles/* 
+
+ENV ARCH {{ target_arch_short }}
+ENV CROSS_COMPILE {{ target_arch }}-hardfloat-linux-gnueabi-
+{% endif %}
+
 USER buildbot
 CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
-EXPOSE 9989 8010

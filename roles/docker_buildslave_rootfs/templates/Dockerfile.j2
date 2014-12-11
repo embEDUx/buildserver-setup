@@ -2,9 +2,39 @@ FROM {{ base_image }}
 MAINTAINER Stefan Junker <code@stefanjunker.de>
 
 RUN \
+  {% set package="dev-util/buildbot-slave" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
+   buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} rootfs_{{ target_arch }} rootfs_{{ target_arch }} && \
+  chown -R buildbot:buildbot {{ buildslave_dir }} && \
+  sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
+
+RUN \
+  {% set package="app-admin/ansible" %}
+  {% set flags="+kw::~"+native_arch_short %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
+  {% set package="app-emulation/qemu" %}
+  {% set flags="+qemu_user_targets_"+target_arch_short+" +qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +virtfs +xattr" %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
   {% set kernel_version=ansible_kernel.split('.')[0]+"."+ansible_kernel.split('.')[1] %}
   {% set package="=sys-kernel/gentoo-sources-"+kernel_version+"*" %}
-  {% set flags="+use::experimental +kw::~"+arch %}
+  {% set flags="+use::experimental +kw::~"+native_arch_short %}
   flaggie {{ package }} {{ flags }}  && \
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
@@ -14,27 +44,13 @@ RUN \
 ADD files/kernel.config /usr/src/linux/.config
 
 RUN \
-  {% set package="app-emulation/qemu" %}
-  {% set flags="+qemu_user_targets_arm +qemu_user_targets_x86_64 +qemu_softmmu_targets_arm +qemu_softmmu_targets_x86_64 +static-softmmu +static-user -opengl -gtk +virtfs" %}
-  flaggie {{ package }} {{ flags }}  && \
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
-  rm -Rf /usr/portage/distfiles/* &&
-  cp /usr/bin/qemu-* /mnt/output/
-
-RUN \
   {% set package="app-emulation/docker" %}
-  {% set flags="+kw::~"+arch %}
+  {% set flags="+kw::~"+native_arch_short %}
   flaggie {{ package }} {{ flags }}  && \
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
-COPY files/ca-certificates /usr/local/share/ca-certificates/
-RUN \
-    chmod 644 /usr/local/share/ca-certificates/*.crt && \
-    update-ca-certificates
-
-CMD /bin/bash
+USER buildbot
+CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
