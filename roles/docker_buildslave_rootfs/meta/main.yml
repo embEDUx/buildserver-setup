@@ -16,6 +16,9 @@ dependencies:
     arch_short: "{{ target_arch_short }}"
     when: native_arch != target_arch
 
+  - role: print_arch
+    arch: "{{ native_arch }}"
+    arch_short: "{{ native_arch_short }}"
   - role: get_stage3
     arch: "{{ native_arch }}"
     arch_short: "{{ native_arch_short }}"

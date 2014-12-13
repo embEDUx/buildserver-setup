@@ -1,12 +1,12 @@
 FROM {{ stage3_image }}
 MAINTAINER Stefan Junker <code@stefanjunker.de>
 
-{% if target_arch is defined and native_arch != target_arch %}
+#{% if target_arch is defined and native_arch != target_arch %}
 #ADD files/qemu/{{ native_arch }}_qemu-{{ target_arch_short }} /usr/bin/qemu-{{ target_arch_short }}
 #RUN echo Emulating {{ target_arch }} on {{ native_arch }}
 #RUN chmod a+rx /usr/bin/qemu-{{ target_arch_short }}
 #ENV QEMU_CPU {{ arch_qemu_cpu_map[target_arch] }}
-{% endif %}
+#{% endif %}
 
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 RUN mkdir /usr/portage && \

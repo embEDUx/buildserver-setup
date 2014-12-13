@@ -1,6 +1,4 @@
 ---
-arch: "{{ native_arch }}"
-arch_short: "{{ native_arch_short }}"
 docker_imagename: buildmaster
 docker_image: "{{ buildmaster_image }}"
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"

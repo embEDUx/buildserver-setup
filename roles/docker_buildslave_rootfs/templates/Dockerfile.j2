@@ -3,9 +3,7 @@ MAINTAINER Stefan Junker <code@stefanjunker.de>
 
 RUN \
   {% set package="dev-util/buildbot-slave" %}
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
+  emerge {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
 RUN \
@@ -50,6 +48,7 @@ RUN \
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
   emerge -u {{ package }} && \
+  usermod -a -G docker buildbot && \
   rm -Rf /usr/portage/distfiles/*
 
 USER buildbot
