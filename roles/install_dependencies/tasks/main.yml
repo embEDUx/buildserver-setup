@@ -1,9 +1,28 @@
 ---
-- name: Install buildserver dependencies
+- name: Install buildserver dependencies on apt-based distributions
   apt:
     pkg: "{{ item }}"
     state: installed
     cache_valid_time: 43200
   with_items:
-  - docker.io
-  - python-docker
+    - docker.io
+    - python-docker
+  when: ansible_pkg_mgr == "apt"
+    
+- name: sync portage-based distributions
+  portage:
+    sync: web
+  when: ansible_pkg_mgr == "portage"
+
+- name: Install buildserver dependencies on portage-based distributions
+  shell: emerge --autounmask-write=y -u {{ item }}; etc-update --automode -5; emerge -u {{ item }}
+  with_items:
+    - app-emulation/docker
+    - dev-python/docker-py
+  when: ansible_pkg_mgr == "portage"
+
+- name: Run docker service
+  service:
+    name: docker
+    enabled: yes
+    state: started

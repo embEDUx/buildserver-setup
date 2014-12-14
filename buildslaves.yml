@@ -21,7 +21,7 @@
     target_arch_short: amd64
   roles:
   - role: docker_buildslave
-#  - role: docker_buildslave_rootfs
+  - role: docker_buildslave_rootfs
 
 - hosts: buildslaves-armv6j_hardfp
   vars:
@@ -29,7 +29,7 @@
     target_arch_short: arm
   roles:
     - docker_buildslave
-#    - docker_buildslave_rootfs
+    - docker_buildslave_rootfs
 
 - hosts: buildslaves-armv7a_hardfp
   vars:
@@ -37,4 +37,4 @@
     target_arch_short: arm
   roles:
     - docker_buildslave
-#    - docker_buildslave_rootfs
+    - docker_buildslave_rootfs

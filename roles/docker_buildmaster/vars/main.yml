@@ -6,8 +6,10 @@ docker_image: "{{ buildmaster_image }}"
 role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
 buildmaster_dir: /var/lib/buildmaster
+buildmaster_config_url: "https://apu.in.htwg-konstanz.de/labworks-embEDUx/buildserver_setup/raw/ansible/roles/docker_buildmaster/files/master.cfg"
 docker_ports: 
   - "8010:8010"
   - "9989:9989"
 docker_volumes: 
-  - "{{ dockerfile_dir }}/files/master.cfg:{{ buildmaster_dir}}/master.cfg"
+  - ""
+  #  - "{{ dockerfile_dir }}/files/:{{ dockerfile_dir }}/files/"

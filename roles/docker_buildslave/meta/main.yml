@@ -1,6 +1,7 @@
 ---
 allow_duplicates: yes
 dependencies:
+  - role: install_dependencies
   - role: set_arch
     arch: "{{ native_arch }}"
     arch_short: "{{ native_arch_short }}"

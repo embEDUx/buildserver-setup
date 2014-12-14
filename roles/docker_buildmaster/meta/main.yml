@@ -1,6 +1,7 @@
 ---
 allow_duplicates: yes
 dependencies:
+  - role: install_dependencies
   - role: get_stage3
   - role: docker_stage3
   - role: docker_base

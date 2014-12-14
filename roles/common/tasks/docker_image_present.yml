@@ -6,6 +6,5 @@
     name={{ docker_image_prefix }}/{{ docker_imagename }}-{{ arch }}
     tag={{ stage3_date }}
     timeout=1800
-#    nocache=true
   tags:
     - build

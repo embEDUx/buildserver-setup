@@ -51,5 +51,15 @@ RUN \
   usermod -a -G docker buildbot && \
   rm -Rf /usr/portage/distfiles/*
 
+RUN \
+  {% set package="sys-apps/proot" %}
+  {% set flags="+kw::~"+native_arch_short %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  usermod -a -G docker buildbot && \
+  rm -Rf /usr/portage/distfiles/*
+
 USER buildbot
 CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid

@@ -39,7 +39,7 @@ RUN \
   etc-update --automode -5 && \
   emerge -u {{ package }} && \
   mkdir -p /usr/local/portage/{metadata,profiles} && \
-  echo 'NameOfYourOverlay' > /usr/local/portage/profiles/repo_name && \
+  echo 'local-overlay' > /usr/local/portage/profiles/repo_name && \
   echo 'masters = gentoo' > /usr/local/portage/metadata/layout.conf && \
   chown -R portage:portage /usr/local/portage && \
   echo 'PORTDIR_OVERLAY="/usr/local/portage ${PORTDIR_OVERLAY}"' >> /etc/portage/make.conf && \
@@ -49,6 +49,10 @@ RUN \
 ENV ARCH {{ target_arch_short }}
 ENV CROSS_COMPILE {{ target_arch }}-hardfloat-linux-gnueabi-
 {% endif %}
+
+RUN \
+  mkdir /var/tmp/embedux && \
+  chown buildbot:buildbot /var/tmp/embedux
 
 USER buildbot
 CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
