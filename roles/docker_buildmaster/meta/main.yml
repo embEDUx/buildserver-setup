@@ -1,4 +1,5 @@
 ---
+allow_duplicates: yes
 dependencies:
   - role: get_stage3
   - role: docker_stage3

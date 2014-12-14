@@ -1,0 +1,6 @@
+---
+- name: Set arch and arch_short
+  set_fact: >
+    arch={{ arch }} arch_short={{ arch_short}}
+  tags:
+    - always

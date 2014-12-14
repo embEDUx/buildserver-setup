@@ -2,7 +2,7 @@
 - name: print architectures 
   debug:
     msg: "arch: {{ arch }}, 
-          target_arch: {{ target_arch }}
+          target_arch: {{ target_arch }},
           target_arch_short: {{ target_arch_short }}"
   tags:
     - always

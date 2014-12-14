@@ -12,13 +12,6 @@ RUN \
   sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
 
 RUN \
-  {% set package="sys-devel/crossdev" %}
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
-  rm -Rf /usr/portage/distfiles/*
-
-RUN \
   {% set package="sys-devel/ct-ng" %}
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
@@ -41,6 +34,10 @@ RUN \
 
 {% if native_arch != target_arch %}
 RUN \
+  {% set package="sys-devel/crossdev" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
   mkdir -p /usr/local/portage/{metadata,profiles} && \
   echo 'NameOfYourOverlay' > /usr/local/portage/profiles/repo_name && \
   echo 'masters = gentoo' > /usr/local/portage/metadata/layout.conf && \

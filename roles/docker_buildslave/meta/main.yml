@@ -1,15 +1,9 @@
 ---
 allow_duplicates: yes
 dependencies:
-  - role: print_arch
+  - role: set_arch
     arch: "{{ native_arch }}"
     arch_short: "{{ native_arch_short }}"
   - role: get_stage3
-    arch: "{{ native_arch }}"
-    arch_short: "{{ native_arch_short }}"
   - role: docker_stage3
-    arch: "{{ native_arch }}"
-    arch_short: "{{ native_arch_short }}"
   - role: docker_base
-    arch: "{{ native_arch }}"
-    arch_short: "{{ native_arch_short }}"
