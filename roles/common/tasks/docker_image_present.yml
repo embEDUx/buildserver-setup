@@ -3,7 +3,7 @@
   docker_image: >
     path={{ dockerfile_dir }}/
     state={{ image_state|default("present") }}
-    name={{ docker_image_prefix }}/{{ docker_imagename }}-{{ arch }}
+    name={{ docker_image_prefix }}/{{ name }}-{{ arch }}
     tag={{ stage3_date }}
     timeout=1800
   tags:

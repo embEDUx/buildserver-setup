@@ -1,10 +1,10 @@
 ---
+name: buildmaster
 arch: "{{ native_arch }}"
 arch_short: "{{ native_arch_short }}"
-docker_imagename: buildmaster
-docker_image: "{{ buildmaster_image }}"
-role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
-dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
+docker_containername: "{{ name }}_{{ arch }}"
+role_dir: "{{ playbook_dir }}/roles/docker_{{ name }}"
+dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ name }}"
 buildmaster_dir: /var/lib/buildmaster
 buildmaster_config_url: "https://apu.in.htwg-konstanz.de/labworks-embEDUx/buildserver_setup/raw/ansible/roles/docker_buildmaster/files/master.cfg"
 docker_ports: 

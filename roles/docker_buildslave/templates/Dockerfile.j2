@@ -55,4 +55,6 @@ RUN \
   chown buildbot:buildbot /var/tmp/embedux
 
 USER buildbot
-CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
+CMD \
+  [ ! -e {{ buildslave_dir }}/twistd.pid ] || rm {{ buildslave_dir }}/twistd.pid && \
+  twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid

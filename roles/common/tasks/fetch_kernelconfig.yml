@@ -1,25 +1,25 @@
 ---
+- name: Fetch remote kernel configuration from proc
+  fetch: >
+    src=/proc/config.gz
+    dest={{ role_dir }}/files/kernel.config.gz
+    flat=yes
+  register: result
+  ignore_errors: true
+  tags: 
+    - generate
+  
+- name: Unpack proc-config.gz
+  local_action: command gunzip --force {{ role_dir }}/files/kernel.config.gz
+  when: result|success
+  tags: 
+    - generate
+
 - name: Fetch remote kernel configuration file from boot
   fetch: >
     src=/boot/config-{{ ansible_kernel }}
     dest={{ role_dir }}/files/kernel.config
     flat=yes
-  register: fetch_kernelconfig_boot
-  ignore_errors: true
-  tags: 
-    - generate
-  
-- name: Fetch remote kernel configuration from proc
-  fetch: >
-    src=/proc/config.gz-{{ ansible_kernel }}
-    dest={{ role_dir }}/files/kernel.config
-    flat=yes
-  when: fetch_kernelconfig_boot|failed
-  tags: 
-    - generate
-  
-- name: Unpack proc-config.gz
-  local_action: command gunzip {{ role_dir }}/files/kernel.config
-  when: fetch_kernelconfig_boot|failed
+  when: result|failed
   tags: 
     - generate

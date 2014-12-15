@@ -1,4 +1,5 @@
 ---
-docker_imagename: base
-dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
-role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
+name: base
+docker_containername: "{{ name }}_{{ arch }}"
+dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ name }}"
+role_dir: "{{ playbook_dir }}/roles/docker_{{ name }}"

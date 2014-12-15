@@ -1,8 +1,10 @@
 ---
+name: buildslave_rootfs
 arch: "{{ native_arch }}.{{ target_arch}}"
-docker_imagename: buildslave_rootfs
-role_dir: "{{ playbook_dir }}/roles/docker_{{ docker_imagename }}"
-dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ docker_imagename }}"
+
+docker_containername: "{{ name }}_{{ arch }}"
+role_dir: "{{ playbook_dir }}/roles/docker_{{ name }}"
+dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ name }}"
 buildslave_dir: /var/lib/buildslave
 docker_ports: ["0"]
 docker_volumes: 

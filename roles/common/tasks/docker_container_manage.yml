@@ -1,8 +1,8 @@
 ---
-- name: manage existing container
+- name: manage docker container
   docker: >
-    image={{ docker_image }}
-    name={{ docker_imagename }}_{{ arch }}
+    image={{ docker_imagename }}
+    name={{ docker_containername }}
     ports={{ docker_ports|join(",") }}
     volumes={{ docker_volumes|join(",") }}
     state={{ item }}
