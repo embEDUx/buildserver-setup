@@ -17,6 +17,7 @@ RUN \
 USER buildbot
 CMD \
   wget {{ buildmaster_config_url }} -O {{ buildmaster_dir }}/master.cfg && \
+  [ ! -e {{ buildmaster_dir }}/twistd.pid ] || rm {{ buildmaster_dir }}/twistd.pid && \
   twistd --no_save -n --logfile=- --python={{ buildmaster_dir }}/buildbot.tac --pidfile={{ buildmaster_dir }}/twistd.pid
 
 EXPOSE 9989 8010

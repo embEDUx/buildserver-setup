@@ -11,5 +11,5 @@ docker_ports:
   - "8010:8010"
   - "9989:9989"
 docker_volumes: 
-  - ""
+  - "/dummyvolume"
   #  - "{{ dockerfile_dir }}/files/:{{ dockerfile_dir }}/files/"
