@@ -9,3 +9,13 @@ buildslave_dir: /var/lib/buildslave
 docker_ports: ["0"]
 docker_volumes: 
    - "/var/run/docker.sock:/var/run/docker.sock"
+docker_privileged: yes
+sudo_pwless_commands:
+  - "/usr/bin/docker"
+  - "/usr/bin/qemu-*"
+  - "/bin/tar"
+  - "/bin/mount"
+  - "/usr/bin/proot"
+  - "/sbin/btrfs"
+  - "/sbin/mkfs.btrfs"
+  - "/bin/mknod"

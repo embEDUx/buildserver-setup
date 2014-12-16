@@ -6,6 +6,7 @@
     ports={{ docker_ports|join(",") }}
     volumes={{ docker_volumes|join(",") }}
     state={{ item }}
+    privileged={{ docker_privileged|default("no") }}
   with_items: "{{ container_states|default(['restarted','running']) }}"
   tags:
     - manage

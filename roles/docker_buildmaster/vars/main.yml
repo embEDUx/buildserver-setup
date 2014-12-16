@@ -13,3 +13,4 @@ docker_ports:
 docker_volumes: 
   - "/dummyvolume"
   #  - "{{ dockerfile_dir }}/files/:{{ dockerfile_dir }}/files/"
+docker_privileged: no

@@ -48,7 +48,6 @@ RUN \
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
   emerge -u {{ package }} && \
-  usermod -a -G docker buildbot && \
   rm -Rf /usr/portage/distfiles/*
 
 RUN \
@@ -58,8 +57,30 @@ RUN \
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
   emerge -u {{ package }} && \
-  usermod -a -G docker buildbot && \
   rm -Rf /usr/portage/distfiles/*
 
+RUN \
+  {% set package="sys-fs/btrfs-progs" %}
+  {% set flags="+kw::~"+native_arch_short %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
+  {% set package="app-admin/sudo" %}
+  {% set flags="-use::sendmail" %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/* && \
+  usermod -a -G wheel buildbot && \
+  echo %wheel ALL=NOPASSWD: {{ sudo_pwless_commands|join(',') }} >> /etc/sudoers
+
+
 USER buildbot
-CMD twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid
+CMD \
+  [ ! -e {{ buildslave_dir }}/twistd.pid ] || rm {{ buildslave_dir }}/twistd.pid && \
+  twistd --no_save -n --logfile=- --python={{ buildslave_dir }}/buildbot.tac --pidfile={{ buildslave_dir }}/twistd.pid

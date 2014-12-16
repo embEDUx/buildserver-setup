@@ -51,7 +51,7 @@ ENV CROSS_COMPILE {{ target_arch }}-hardfloat-linux-gnueabi-
 {% endif %}
 
 RUN \
-  mkdir /var/tmp/embedux && \
+  mkdir /var/tmp/embedux/download -p && \
   chown buildbot:buildbot /var/tmp/embedux
 
 USER buildbot
