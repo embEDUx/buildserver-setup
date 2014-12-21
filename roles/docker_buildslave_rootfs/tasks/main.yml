@@ -10,4 +10,3 @@
 - include: ../../common/tasks/docker_image_present.yml
 - include: ../../common/tasks/set_facts.yml
 - include: ../../common/tasks/docker_container_manage.yml
-#  docker_image: "{{ buildslave_rootfs_image }}"

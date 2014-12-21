@@ -12,6 +12,7 @@ RUN \
   sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
 
 RUN \
+  USE="static-libs" emerge -1N sys-libs/zlib sys-libs/ncurses dev-libs/expat && \
   {% set package="sys-devel/ct-ng" %}
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
@@ -32,6 +33,13 @@ RUN \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
+RUN \
+  mkdir {{ embedux_tmp }}/download -p && \
+  chown buildbot:buildbot -R {{ embedux_tmp }} && \
+  mkdir /home/buildbot && \
+  chown buildbot:buildbot /home/buildbot && \
+  usermod -d /home/buildbot buildbot
+
 {% if native_arch != target_arch %}
 RUN \
   {% set package="sys-devel/crossdev" %}
@@ -50,9 +58,11 @@ ENV ARCH {{ target_arch_short }}
 ENV CROSS_COMPILE {{ target_arch }}-hardfloat-linux-gnueabi-
 {% endif %}
 
-RUN \
-  mkdir /var/tmp/embedux/download -p && \
-  chown buildbot:buildbot /var/tmp/embedux
+ENV EMBEDUX_TMP {{ embedux_tmp }}
+ENV NATIVE_ARCH {{ native_arch }}
+ENV NATIVE_ARCH_SHORT {{ native_arch_short }}
+ENV TARGET_ARCH {{ target_arch }}
+ENV TARGET_ARCH_SHORT {{ target_arch_short }}
 
 USER buildbot
 CMD \
