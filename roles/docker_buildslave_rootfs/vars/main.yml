@@ -18,6 +18,7 @@ sudo_pwless_commands:
   - "/usr/bin/proot -q /usr/bin/qemu-arm -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r */rootfs.btrfs.mnt/qemu_prepare/ *"
   - "/usr/bin/docker images -q embedux/stage3-*"
   - "/sbin/btrfs subvolume create */rootfs.btrfs.mnt/stage3"
+  - "/sbin/btrfs subvolume delete */rootfs.btrfs.mnt/*"
   - "/usr/bin/docker save *"
   - "/bin/tar -xp -f - -C */rootfs.btrfs.mnt/stage3/*"
   - "/bin/mount */rootfs.btrfs.img */rootfs.btrfs.mnt"
