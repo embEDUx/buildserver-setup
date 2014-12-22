@@ -15,12 +15,12 @@ docker_volumes:
 docker_privileged: yes
 sudo_pwless_commands:
   - "/sbin/btrfs subvolume snapshot */rootfs.btrfs.mnt/*"
-  - "/usr/bin/proot -q /usr/bin/qemu-arm -b /etc/host.conf -b /etc/hosts -b /etc/resolv.conf -b /dev -b /sys -b /proc -b /tmp -0 -r */rootfs.btrfs.mnt/qemu_prepare/ *"
+  - "/usr/bin/proot */rootfs.btrfs.mnt/qemu_prepare/*"
   - "/usr/bin/docker images -q embedux/stage3-*"
-  - "/sbin/btrfs subvolume create */rootfs.btrfs.mnt/stage3"
+  - "/sbin/btrfs subvolume create */rootfs.btrfs.mnt/*"
   - "/sbin/btrfs subvolume delete */rootfs.btrfs.mnt/*"
   - "/usr/bin/docker save *"
-  - "/bin/tar -xp -f - -C */rootfs.btrfs.mnt/stage3/*"
+  - "/bin/tar */rootfs.btrfs.mnt/*"
   - "/bin/mount */rootfs.btrfs.img */rootfs.btrfs.mnt"
   - "/bin/umount */rootfs.btrfs.*"
   - "/usr/bin/crossdev"
