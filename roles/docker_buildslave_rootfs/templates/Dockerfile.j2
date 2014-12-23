@@ -20,14 +20,6 @@ RUN \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
-RUN \
-  {% set package="app-emulation/qemu" %}
-  {% set flags="+qemu_user_targets_"+target_arch_short+" +qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +static-user +virtfs +xattr" %}
-  flaggie {{ package }} {{ flags }}  && \
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
-  rm -Rf /usr/portage/distfiles/*
 
 RUN \
   {% set kernel_version=ansible_kernel.split('.')[0]+"."+ansible_kernel.split('.')[1] %}
@@ -88,6 +80,22 @@ RUN \
 
 {% if native_arch != target_arch %}
 RUN \
+  {% set package="app-emulation/qemu" %}
+  {% set flags="+qemu_user_targets_"+target_arch_short+" +qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +static-user +virtfs +xattr" %}
+  flaggie {{ package }} {{ flags }}  && \
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
+  {% set package="dev-vcs/git" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
   {% set package="sys-devel/distcc" %}
   {% set flags="-use::sendmail" %}
   flaggie {{ package }} {{ flags }}  && \
@@ -109,12 +117,6 @@ RUN \
   rm -Rf /usr/portage/distfiles/* 
 {% endif %}
 
-RUN \
-  {% set package="dev-vcs/git" %}
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
-  rm -Rf /usr/portage/distfiles/*
 
 ENV EMBEDUX_TMP {{ embedux_tmp }}
 ENV NATIVE_ARCH {{ native_arch }}
