@@ -20,7 +20,7 @@ sudo_pwless_commands:
   - "/sbin/btrfs subvolume delete */rootfs.btrfs.mnt/*"
   - "/sbin/btrfs subvolume snapshot */rootfs.btrfs.mnt/*"
   - "/sbin/btrfs filesystem balance */rootfs.btrfs.mnt/*"
-  - "/usr/bin/proot */rootfs.btrfs.mnt/qemu_prepare/*"
+  - "/usr/bin/proot */rootfs.btrfs.mnt/*"
   - "/usr/bin/docker images -q embedux/stage3-*"
   - "/usr/bin/docker save *"
   - "/usr/bin/crossdev"
