@@ -25,3 +25,4 @@ sudo_pwless_commands:
   - "/usr/bin/docker save *"
   - "/usr/bin/crossdev"
   - "/bin/tar */rootfs.btrfs.mnt/*"
+  - "/usr/bin/pkill *sshd*"
