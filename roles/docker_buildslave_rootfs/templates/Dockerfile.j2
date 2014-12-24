@@ -78,7 +78,6 @@ RUN \
   chown buildbot:buildbot /home/buildbot && \
   usermod -d /home/buildbot buildbot
 
-{% if native_arch != target_arch %}
 RUN \
   {% set package="app-emulation/qemu" %}
   {% set flags="+qemu_user_targets_"+target_arch_short+" +qemu_softmmu_targets_"+target_arch_short+" -opengl -gtk +static-user +virtfs +xattr" %}
@@ -88,13 +87,7 @@ RUN \
   emerge -u {{ package }} && \
   rm -Rf /usr/portage/distfiles/*
 
-RUN \
-  {% set package="dev-vcs/git" %}
-  emerge --autounmask-write=y {{ package }}; \
-  etc-update --automode -5 && \
-  emerge -u {{ package }} && \
-  rm -Rf /usr/portage/distfiles/*
-
+{% if native_arch != target_arch %}
 RUN \
   {% set package="sys-devel/distcc" %}
   {% set flags="-use::sendmail" %}
