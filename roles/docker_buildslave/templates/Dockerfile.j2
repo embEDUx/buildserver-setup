@@ -27,6 +27,13 @@ RUN \
   rm -Rf /usr/portage/distfiles/*
 
 RUN \
+  {% set package="sys-apps/dtc" %}
+  emerge --autounmask-write=y {{ package }}; \
+  etc-update --automode -5 && \
+  emerge -u {{ package }} && \
+  rm -Rf /usr/portage/distfiles/*
+
+RUN \
   {% set package="dev-python/virtualenv" %}
   emerge --autounmask-write=y {{ package }}; \
   etc-update --automode -5 && \
