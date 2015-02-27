@@ -10,14 +10,14 @@
  
 - name: Download index
   get_url: >
-    url={{ stage3_base_uri }}/{{ stage3_index_uri_suffix }}
-    dest={{ base_dir }}/download/
+        url={{ stage3_base_uri }}/{{ stage3_index_uri_suffix }}
+        dest={{ base_dir }}/download/
   register: index_file
   tags:
     - get
 
 - name: Find stage3 filename
-  shell: grep -E {{ stage3_re }} {{ index_file.dest }}
+  shell: grep -oE {{ stage3_re }} {{ index_file.dest }}
   register: stage3download_suffix
   tags:
     - get
@@ -29,8 +29,8 @@
 
 - name: Download stage3 archive
   get_url: >
-    url={{ stage3_base_uri }}/{{ stage3download_suffix.stdout }}
-    dest={{ base_dir }}/download/{{ stage3download_suffix.stdout.split("/")[1] }}
+        url={{ stage3_base_uri }}/{{ stage3download_suffix.stdout }}
+        dest={{ base_dir }}/download/{{ stage3download_suffix.stdout.split("/")[1] }}
   register: stage3_file
   tags:
     - get

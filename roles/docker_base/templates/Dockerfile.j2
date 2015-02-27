@@ -4,10 +4,10 @@ MAINTAINER Stefan Junker <code@stefanjunker.de>
 RUN echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen && locale-gen
 RUN \
   for dir in use mask accept_keywords unmask; do \
-    mkdir /etc/portage/package.${dir}; \
+    mkdir -p /etc/portage/package.${dir}; \
     touch /etc/portage/package.${dir}/99auto.conf; \
   done && \
-  mkdir /usr/portage && \
+  mkdir -p /usr/portage && \
   emerge-webrsync {% if portage_date is defined %}--revert={{ portage_date }}{% endif %}
 
 ADD files/make.conf.appendix /tmp/
