@@ -9,6 +9,12 @@
     - python-docker
   when: ansible_pkg_mgr == "apt"
     
+- name: Install equery on gentoo if not available
+  shell: emerge -n {{ item }}
+  with_items:
+    - app-portage/gentoolkit
+
+  when: ansible_pkg_mgr == "portage"
 - name: sync portage-based distributions
   portage:
     sync: web
