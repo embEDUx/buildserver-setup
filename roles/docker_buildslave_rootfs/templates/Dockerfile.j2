@@ -43,7 +43,7 @@ RUN \
   rm -Rf /usr/portage/distfiles/*
 
 RUN \
-  {% set package="sys-apps/proot" %}
+  {% set package="=sys-apps/proot-4*" %}
   {% set flags="+kw::~"+native_arch_short %}
   flaggie {{ package }} {{ flags }}  && \
   emerge --autounmask-write=y {{ package }}; \
