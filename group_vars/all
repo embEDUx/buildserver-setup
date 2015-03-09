@@ -12,9 +12,6 @@ arch_short_map:
   amd64: amd64
   armv6j_hardfp: arm
   armv7a_hardfp: arm
-arch_qemu_cpu_map:
-  armv6j_hardfp: arm11mpcore
-  armv7a_hardfp: cortex-a15
 
 native_arch: "{{ arch_map[ansible_architecture] }}"
 native_arch_short: "{{ arch_short_map[native_arch] }}"
