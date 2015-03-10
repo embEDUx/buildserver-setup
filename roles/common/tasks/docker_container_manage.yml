@@ -8,5 +8,6 @@
     state={{ item }}
     privileged={{ docker_privileged|default("no") }}
   with_items: "{{ container_states|default(['restarted','running']) }}"
+  sudo: yes
   tags:
     - manage

@@ -3,6 +3,7 @@
   roles:
   - role: dump_vars
   - role: install_dependencies
+    sudo: yes
 
 - include: buildmaster.yml
 - include: buildslaves.yml
