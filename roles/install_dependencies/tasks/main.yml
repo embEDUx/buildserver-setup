@@ -1,4 +1,17 @@
 ---
+- name: Install python-apt
+  apt:
+    pkg: "{{ item }}"
+    state: installed
+    cache_valid_time: 43200
+  with_items:
+    - python-apt
+  when: ansible_pkg_mgr == "apt"
+
+- name: Add official docker apt repository
+  apt_repository: repo='deb https://get.docker.com/ubuntu docker main'
+  when: ansible_pkg_mgr == "apt"
+
 - name: Install buildserver dependencies on apt-based distributions
   apt:
     pkg: "{{ item }}"
