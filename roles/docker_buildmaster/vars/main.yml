@@ -7,6 +7,7 @@ role_dir: "{{ playbook_dir }}/roles/docker_{{ name }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ name }}"
 buildmaster_dir: /var/lib/buildmaster
 buildmaster_config_url: "https://apu.in.htwg-konstanz.de/labworks-embEDUx/buildserver_setup/raw/ansible/roles/docker_buildmaster/files/master.cfg"
+twisted_add_config_url: "https://apu.in.htwg-konstanz.de/labworks-embEDUx/buildserver_setup/raw/ansible/roles/docker_buildmaster/files/mime_type_extension"
 docker_ports: 
   - "8010:8010"
   - "9989:9989"

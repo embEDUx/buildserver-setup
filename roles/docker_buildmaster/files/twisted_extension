@@ -1,0 +1,7 @@
+from twisted.web.static import File
+webdir = File("public_html")
+webdir.contentTypes['.tbz2'] = 'application/octet-stream'
+webdir.contentTypes['.bz2'] = 'application/octet-stream'
+webdir.contentTypes['.tar'] = 'application/octet-stream'
+webdir.contentTypes['.gz'] = 'application/octet-stream'
+
