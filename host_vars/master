@@ -1,4 +1,4 @@
 ---
 ansible_connection: ssh
-ansible_ssh_host: moe.in.htwg-konstanz.de
-ansible_ssh_user: root
+ansible_ssh_host: 192.168.122.132
+ansible_ssh_user: embedux
