@@ -16,6 +16,8 @@ RUN \
   cat {{ buildmaster_dir }}/twisted_extension >> {{ buildmaster_dir }}/buildbot.tac && \
   chown -R buildbot:buildbot {{ buildmaster_dir }}
 
+COPY buildbot_pws.py {{ buildmaster_dir }}
+
 USER buildbot
 CMD \
   wget {{ buildmaster_config_url }} -O {{ buildmaster_dir }}/master.cfg && \

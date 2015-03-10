@@ -7,7 +7,8 @@ RUN \
   rm -Rf /usr/portage/distfiles/*
 
 RUN \
-   buildslave create-slave {{ buildslave_dir }} {{ hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} rootfs_{{ target_arch }} rootfs_{{ target_arch }} && \
+   buildslave create-slave {{ buildslave_dir }} {{
+   hostvars[groups["buildmaster"][0]]["ansible_fqdn"] }} rootfs_{{ target_arch }} {{ buildbot_psk }} && \
   chown -R buildbot:buildbot {{ buildslave_dir }} && \
   sed -i -e 's!application.setComponent!#application.setComponent!' {{ buildslave_dir }}/buildbot.tac
 

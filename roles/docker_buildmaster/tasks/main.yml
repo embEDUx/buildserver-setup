@@ -5,6 +5,10 @@
 
 - include: ../../common/tasks/prepare_directory.yml
 - include: ../../common/tasks/render_templates.yml
+- name: render buildbot_pws.py
+  template: src={{ role_dir }}/templates/buildbot_pws.py.j2 dest={{ dockerfile_dir }}/builtbot_pws.py
+  tags:
+    - generate
 - include: ../../common/tasks/sync_dir.yml
 - include: ../../common/tasks/docker_image_present.yml
 - include: ../../common/tasks/set_facts.yml
