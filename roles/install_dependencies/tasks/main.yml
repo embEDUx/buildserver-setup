@@ -1,43 +1,8 @@
 ---
-- name: Install python-apt
-  apt:
-    pkg: "{{ item }}"
-    state: installed
-    cache_valid_time: 43200
-  with_items:
-    - python-apt
-  when: ansible_pkg_mgr == "apt"
-
-- name: Add official docker apt repository
-  apt_repository: repo='deb https://get.docker.com/ubuntu docker main'
-  when: ansible_pkg_mgr == "apt"
-
-- name: Install buildserver dependencies on apt-based distributions
-  apt:
-    pkg: "{{ item }}"
-    state: installed
-    cache_valid_time: 43200
-  with_items:
-    - lxc-docker
-    - python-docker
+- include: apt.yml
   when: ansible_pkg_mgr == "apt"
     
-- name: Install equery on gentoo if not available
-  shell: emerge -n {{ item }}
-  with_items:
-    - app-portage/gentoolkit
-
-  when: ansible_pkg_mgr == "portage"
-- name: sync portage-based distributions
-  portage:
-    sync: web
-  when: ansible_pkg_mgr == "portage"
-
-- name: Install buildserver dependencies on portage-based distributions
-  shell: emerge --autounmask-write=y -u {{ item }}; etc-update --automode -5; emerge -u {{ item }}
-  with_items:
-    - app-emulation/docker
-    - dev-python/docker-py
+- include: portage.yml
   when: ansible_pkg_mgr == "portage"
 
 - name: Run docker service

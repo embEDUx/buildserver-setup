@@ -1,0 +1,22 @@
+---
+- name: Install python-apt
+  apt:
+    pkg: "{{ item }}"
+    state: installed
+    cache_valid_time: 43200
+  with_items:
+    - python-apt
+
+- name: Add official docker apt repository
+  apt_repository: repo='deb https://get.docker.com/ubuntu docker main'
+- name: Add apt repository for docker-py
+  apt_repository: repo='deb http://ppa.launchpad.net/opencontrail/ppa/ubuntu trusty main'
+
+- name: Install buildserver dependencies on apt-based distributions
+  apt:
+    pkg: "{{ item }}"
+    state: installed
+    cache_valid_time: 43200
+  with_items:
+    - lxc-docker
+    - python-docker
