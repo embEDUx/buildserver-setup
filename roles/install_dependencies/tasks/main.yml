@@ -18,7 +18,7 @@
     state: installed
     cache_valid_time: 43200
   with_items:
-    - docker.io
+    - lxc-docker
     - python-docker
   when: ansible_pkg_mgr == "apt"
     
