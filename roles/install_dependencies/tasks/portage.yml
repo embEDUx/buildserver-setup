@@ -1,0 +1,15 @@
+---
+- name: Install equery on gentoo if not available
+  shell: emerge -n {{ item }}
+  with_items:
+    - app-portage/gentoolkit
+
+- name: sync portage-based distributions
+  portage:
+    sync: web
+
+- name: Install buildserver dependencies on portage-based distributions
+  shell: emerge --autounmask-write=y -u {{ item }}; etc-update --automode -5; emerge -u {{ item }}
+  with_items:
+    - app-emulation/docker
+    - dev-python/docker-py
