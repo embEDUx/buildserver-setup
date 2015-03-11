@@ -1,4 +1,3 @@
 ---
-- include: dependencies.yml
 - include: buildmaster.yml
 - include: buildslaves.yml
