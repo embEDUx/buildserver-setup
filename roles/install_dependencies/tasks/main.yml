@@ -18,5 +18,5 @@
     state: started
 
 - name: Disable apparmor for docker
- shell: aa-complain /etc/apparmor.d/docker
+  shell: aa-complain /etc/apparmor.d/docker
   when: apparmor_installed.rc == 0
