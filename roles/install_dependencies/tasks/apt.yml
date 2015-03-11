@@ -39,7 +39,7 @@
 
 - name: Install apparmor-utils if apparmor is installed
   apt:
-      pkg: apparmor-utils
+    pkg: apparmor-utils
     state: present
   when: apparmor_installed.rc == 0
 
