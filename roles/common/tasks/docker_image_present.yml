@@ -1,5 +1,6 @@
 ---
 - include: check_aacomplain.yml
+  sudo: yes
 - name: make sure the image is present
   docker_image: >
     path={{ dockerfile_dir }}/
