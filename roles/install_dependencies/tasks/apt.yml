@@ -12,8 +12,7 @@
   register: opencontrail_key
 
 - name: Update the Cache if keys were added
-  apt:
-    update_cache: yes
+  apt: update_cache=yes
   when: dockerppa_key|changed or opencontrail_key|changed
 
 - name: Install python-apt
