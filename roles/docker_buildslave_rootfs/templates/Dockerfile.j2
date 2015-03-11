@@ -24,7 +24,8 @@ RUN \
 
 RUN \
   {% set kernel_version=ansible_kernel.split('.')[0]+"."+ansible_kernel.split('.')[1] %}
-  {% set package="=sys-kernel/gentoo-sources-"+kernel_version+"*" %}
+#  {% set package="=sys-kernel/gentoo-sources-"+kernel_version+"*" %}
+  {% set package="sys-kernel/gentoo-sources" %}
   {% set flags="+use::experimental +kw::~"+native_arch_short %}
   flaggie {{ package }} {{ flags }}  && \
   emerge --autounmask-write=y {{ package }}; \
