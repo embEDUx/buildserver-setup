@@ -1,17 +1,22 @@
 ---
+- name: Check for kernel config in proc
+  stat: path=/proc/config.gz
+  register: configgz
+  tags: 
+    - generate
+
 - name: Fetch remote kernel configuration from proc
   fetch: >
     src=/proc/config.gz
     dest={{ role_dir }}/files/kernel.config.gz
     flat=yes
-  register: result
-  ignore_errors: true
+  when: configgz.stat.exists == True
   tags: 
     - generate
   
 - name: Unpack proc-config.gz
   local_action: command gunzip --force {{ role_dir }}/files/kernel.config.gz
-  when: result|success
+  when: configgz.stat.exists == True
   tags: 
     - generate
 
@@ -20,6 +25,6 @@
     src=/boot/config-{{ ansible_kernel }}
     dest={{ role_dir }}/files/kernel.config
     flat=yes
-  when: result|failed
+  when: configgz.stat.exists == False
   tags: 
     - generate
