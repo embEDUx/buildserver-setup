@@ -13,7 +13,7 @@
   register: add_user_to_docker_group
 
 - name: Kill open ssh sessions if the permissions have changed
-  shell: "pkill -9 -u {{ ansible_ssh_user }} sshd"
+  shell: "echo pkill -9 -u {{ ansible_ssh_user }} sshd | sh"
   when: add_user_to_docker_group|changed
   failed_when: false
 
