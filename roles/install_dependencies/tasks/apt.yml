@@ -3,17 +3,23 @@
   apt_repository: repo='deb https://get.docker.com/ubuntu docker main' state=present
 - name: Add key for docker ppa
   apt_key: keyserver=keyserver.ubuntu.com id=36A1D7869245C8950F966E92D8576A8BA88D21E9 state=present
+  register: dockerppa_key
 
 - name: Add apt repository for docker-py
   apt_repository: repo='deb http://ppa.launchpad.net/opencontrail/ppa/ubuntu trusty main'
 - name: Add key for opencontrail ppa
   apt_key: keyserver=keyserver.ubuntu.com id=F04D4FBCA09579F7599A2A3716BD83506839FE77 state=present
+  register: opencontrail_key
+
+- name: Update the Cache if keys were added
+  apt:
+    update_cache: yes
+  when: dockerppa_key|changed or opencontrail_key|changed
 
 - name: Install python-apt
   apt:
     pkg: "{{ item }}"
     state: installed
-    update_cache: yes
   with_items:
     - python-apt
     - apt-transport-https
@@ -25,3 +31,15 @@
   with_items:
     - lxc-docker
     - python-docker-py
+
+- name: Check if apparmor is installed
+  shell: dpkg-query -l apparmor
+  register: apparmor_installed
+  failed_when: apparmor_installed.rc != 0 and apparmor_installed.rc != 1
+
+- name: Install apparmor-utils if apparmor is installed
+  apt:
+      pkg: apparmor-utils
+    state: present
+  when: apparmor_installed.rc == 0
+
