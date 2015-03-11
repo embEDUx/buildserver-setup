@@ -3,7 +3,7 @@
 base_dir: /var/tmp/embedux
 config_dir: "{{ base_dir }}/config"
 embedux_tmp: /var/tmp/embedux
-repos_url_base: "https://apu.in.htwg-konstanz.de/labworks-embEDUx"
+repos_url_base: "https://github.com/embEDUx"
 
 arch_branchregex:
     amd64:
