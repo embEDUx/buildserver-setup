@@ -12,17 +12,8 @@
       groups=docker
   register: add_user_to_docker_group
 
-- name: Kill open ssh sessions if the permissions have changed
-  shell: "echo pkill -9 -u {{ ansible_ssh_user }} sshd | sh"
-  when: add_user_to_docker_group|changed
-  failed_when: false
-
 - name: Run docker service
   service:
     name: docker
     enabled: yes
     state: started
-
-- name: Disable apparmor for docker
-  shell: aa-complain /etc/apparmor.d/docker
-  when: apparmor_installed.rc == 0
