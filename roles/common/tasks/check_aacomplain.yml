@@ -1,0 +1,12 @@
+---
+- name: Check if aa-complain is available
+  shell: which aa-complain
+  register: aa_complain
+  failed_when: aa_complain.rc != 0 and aa_complain.rc != 1
+  tags:
+    - build
+- name: Disable apparmor for docker
+  shell: aa-complain /etc/apparmor.d/docker
+  when: aa_complain.rc == 0
+  tags:
+    - build
