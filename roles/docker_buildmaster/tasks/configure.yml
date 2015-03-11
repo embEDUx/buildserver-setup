@@ -1,0 +1,3 @@
+---
+- name: reload the master.cfg file
+  shell: "docker exec {{ docker_containername }} buildbot reconfig {{ buildmaster_dir }}"

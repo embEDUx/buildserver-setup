@@ -1,5 +1,6 @@
 ---
 - name: Import stage3 image if it's not present
+  sudo: yes
   shell: cat {{ stage3_filepath }} | docker import - {{ docker_image_prefix }}/{{ name}}-{{ arch }}:{{ stage3_date }}
   register: docker_import
   tags:

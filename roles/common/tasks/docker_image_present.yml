@@ -6,6 +6,5 @@
     name={{ docker_image_prefix }}/{{ name }}-{{ arch }}
     tag={{ stage3_date }}
     timeout=1800
-  sudo: yes
   tags:
     - build

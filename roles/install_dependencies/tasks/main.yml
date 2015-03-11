@@ -5,6 +5,12 @@
 - include: portage.yml
   when: ansible_pkg_mgr == "portage"
 
+- name: add user to the docker group
+  user: >
+      name={{ ansible_ssh_user }}
+      append=yes
+      groups=docker
+
 - name: Run docker service
   service:
     name: docker

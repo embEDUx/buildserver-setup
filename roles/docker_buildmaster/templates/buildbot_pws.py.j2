@@ -1,6 +1,0 @@
-psk = {{ buildbot_psk }}
-users = [
-    {% for user,pw in users %}
-    ({{ user}}, {{ pw }}),
-    {% endfor %}
-]

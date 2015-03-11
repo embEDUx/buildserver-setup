@@ -3,15 +3,31 @@
 base_dir: /var/tmp/embedux
 config_dir: "{{ base_dir }}/config"
 embedux_tmp: /var/tmp/embedux
+repos_url_base: "https://apu.in.htwg-konstanz.de/labworks-embEDUx"
+
+arch_branchregex:
+    amd64:
+        - ".*-ctng-.*"
+        - ".*qemu-virt-amd64.*"
+
+    armv6j_hardfp: 
+        - ".*raspberry-pi"
+
+    armv7a_hardfp: 
+        - ".*beaglebone-black"
+        - ".*banana-pi"
+        - ".*irisboard"
+        - ".*utilite-pro"
+        - ".*qemu-virt-arm.*"
 
 arch_map:
-  x86_64: amd64
-  armv6l: armv6j_hardfp
-  armv7l: armv7a_hardfp
+    x86_64: amd64
+    armv6l: armv6j_hardfp
+    armv7l: armv7a_hardfp
 arch_short_map:
-  amd64: amd64
-  armv6j_hardfp: arm
-  armv7a_hardfp: arm
+    amd64: amd64
+    armv6j_hardfp: arm
+    armv7a_hardfp: arm
 
 native_arch: "{{ arch_map[ansible_architecture] }}"
 native_arch_short: "{{ arch_short_map[native_arch] }}"

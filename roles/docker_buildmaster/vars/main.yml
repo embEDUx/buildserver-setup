@@ -6,12 +6,12 @@ docker_containername: "{{ name }}_{{ arch }}"
 role_dir: "{{ playbook_dir }}/roles/docker_{{ name }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ name }}"
 buildmaster_dir: /var/lib/buildmaster
-buildmaster_config_url: "https://apu.in.htwg-konstanz.de/labworks-embEDUx/buildserver_setup/raw/ansible/roles/docker_buildmaster/files/master.cfg"
-twisted_add_config_url: "https://apu.in.htwg-konstanz.de/labworks-embEDUx/buildserver_setup/raw/ansible/roles/docker_buildmaster/files/twisted_extension"
+
+ansible_git_repo_url: "{{ repos_url_base }}/rootfs_buildroutine.git"
+
 docker_ports: 
   - "8010:8010"
   - "9989:9989"
 docker_volumes: 
-  - "/dummyvolume"
-  #  - "{{ dockerfile_dir }}/files/:{{ dockerfile_dir }}/files/"
+  - "{{ dockerfile_dir }}/files/master.cfg:{{ buildmaster_dir}}/master.cfg:ro"
 docker_privileged: no

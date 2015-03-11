@@ -1,15 +1,24 @@
 ---
 - include_vars: main.yml
   tags:
-    - always
+        - always
 
 - include: ../../common/tasks/prepare_directory.yml
 - include: ../../common/tasks/render_templates.yml
-- name: render buildbot_pws.py
-  template: src={{ role_dir }}/templates/buildbot_pws.py.j2 dest={{ dockerfile_dir }}/builtbot_pws.py
-  tags:
-    - generate
 - include: ../../common/tasks/sync_dir.yml
 - include: ../../common/tasks/docker_image_present.yml
 - include: ../../common/tasks/set_facts.yml
+- name: render master.cfg
+  template: src={{ role_dir }}/templates/master.cfg.j2 dest={{ dockerfile_dir }}/files/master.cfg mode=0400
+  tags:
+      - generate
+      - configure
+- name: set master.cfg acl permissions for buildbot
+  acl: name={{ dockerfile_dir }}/files/master.cfg entry="group:101:r--" state=present
+  tags:
+      - generate
+      - configure
 - include: ../../common/tasks/docker_container_manage.yml
+#- include: configure.yml
+#  tags:
+#        - reload
