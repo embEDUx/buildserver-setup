@@ -1,4 +1,12 @@
 ---
+- name: Install python-apt
+  apt:
+    pkg: "{{ item }}"
+    state: installed
+  with_items:
+    - python-apt
+    - apt-transport-https
+
 - name: Add official docker apt repository
   apt_repository: repo='deb https://get.docker.com/ubuntu docker main' state=present
 - name: Add key for docker ppa
@@ -14,14 +22,6 @@
 - name: Update the Cache if keys were added
   apt: update_cache=yes
   when: dockerppa_key|changed or opencontrail_key|changed
-
-- name: Install python-apt
-  apt:
-    pkg: "{{ item }}"
-    state: installed
-  with_items:
-    - python-apt
-    - apt-transport-https
 
 - name: Install buildserver dependencies on apt-based distributions
   apt:

@@ -17,3 +17,8 @@
     name: docker
     enabled: yes
     state: started
+
+- name: Kill remaining ssh sessions
+  local_action:
+      shell: pkill -9 -f ansible-ssh
+  failed_when: false
