@@ -7,8 +7,6 @@ role_dir: "{{ playbook_dir }}/roles/docker_{{ name }}"
 dockerfile_dir: "{{ base_dir }}/{{ arch }}/docker_{{ name }}"
 buildmaster_dir: /var/lib/buildmaster
 
-ansible_git_repo_url: "{{ repos_url_base }}/rootfs_buildroutine.git"
-
 docker_ports: 
   - "8010:8010"
   - "9989:9989"
