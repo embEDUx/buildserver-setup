@@ -29,6 +29,13 @@ git_repo_uris = {
 }
 
 
+######## Buildmaster Web-Interface Settings
+
+buildmaster_port = 8010
+buildmaster_url = "http://{}:{}".format(
+    hostvars[groups["buildmaster"][0]]["ansible_default_ipv4"]["address"],
+    buildmaster_port)
+
 ####### BUILDSLAVES
 
 # The 'slaves' list defines the set of recognized buildslaves. Each element is
@@ -195,7 +202,8 @@ factory_rootfs.addStep(ShellCommand(command=" ansible-playbook -i .ansible/hosts
                                     timeout=None, usePTY=True, haltOnFailure=True, 
                                     env={ "TERM": "vt100",
                                           "ANSIBLE_CONFIG": ".ansible/ansible.cfg",
-                                          "ANSIBLE_FORCE_COLOR": "1"
+                                          "ANSIBLE_FORCE_COLOR": "1",
+                                          "BUILDMASTER_URL": buildaster_url,
                                     }))
 factory_rootfs.addStep(SetPropertyFromCommand(command="pushd output >/dev/null; find *; popd >/dev/null", extract_fn=glob2list_1))
 factory_rootfs.addStep(
@@ -253,7 +261,7 @@ authz_cfg=authz.Authz(
     cancelPendingBuild = 'auth',
     pingBuilder = True,
 )
-c['status'].append(html.WebStatus(http_port=8010, authz=authz_cfg))
+c['status'].append(html.WebStatus(http_port=buildmaster_port, authz=authz_cfg))
 
 ####### PROJECT IDENTITY
 
@@ -270,7 +278,8 @@ c['titleURL'] = "{{ repos_url_base }}"
 # with an externally-visible host name which the buildbot cannot figure out
 # without some help.
 
-c['buildbotURL'] = "http://localhost:8010/"
+
+c['buildbotURL'] = buildmaster_url
 
 ####### DB URL
 
