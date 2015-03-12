@@ -161,7 +161,7 @@ def get_product(props):
   repository = props.getProperty("repository")
   product = repository
   product = product.split("/",-1)[-1]
-  product = product.replace(".git","")
+  product = product.replace("-specs.git","")
   return product
 
 def glob2list_1(rc, stdout, stderr):
