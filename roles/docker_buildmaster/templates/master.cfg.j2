@@ -33,7 +33,7 @@ git_repo_uris = {
 
 buildmaster_port = 8010
 buildmaster_url = "http://{}:{}".format(
-    {{ hostvars[groups["buildmaster"][0]]["ansible_default_ipv4"]["address"] }},
+    '{{ hostvars[groups["buildmaster"][0]]["ansible_default_ipv4"]["address"] }}',
     buildmaster_port)
 
 ####### BUILDSLAVES
@@ -203,7 +203,7 @@ factory_rootfs.addStep(ShellCommand(command=" ansible-playbook -i .ansible/hosts
                                     env={ "TERM": "vt100",
                                           "ANSIBLE_CONFIG": ".ansible/ansible.cfg",
                                           "ANSIBLE_FORCE_COLOR": "1",
-                                          "BUILDMASTER_URL": buildaster_url,
+                                          "BUILDMASTER_URL": buildmaster_url,
                                     }))
 factory_rootfs.addStep(SetPropertyFromCommand(command="pushd output >/dev/null; find *; popd >/dev/null", extract_fn=glob2list_1))
 factory_rootfs.addStep(

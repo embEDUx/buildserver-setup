@@ -17,6 +17,7 @@
     name: docker
     enabled: yes
     state: started
+  failed_when: false
 
 - name: Kill remaining ssh sessions
   sudo: false
